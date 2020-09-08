@@ -53,14 +53,14 @@ io.on('connection', socket => {
       socket.join(user.groupId);
   
       // Welcome current user
-      socket.emit('receive_message', formatMessage({message : 'Welcome to chat'}));
+      socket.emit('receive_message', {message : 'Welcome to chat'});
   
       // Broadcast when a user connects
       socket.broadcast
         .to(user.groupId)
         .emit(
           'receive_message',
-          formatMessage(message, `${user.userName} has joined the chat`)
+          {message : `${user.userName} has joined the chat`}
         );
   
       // // Send users and room info
@@ -86,7 +86,7 @@ socket.on('disconnect', () => {
   if (user) {
     io.to(user.groupId).emit(
       'receive_message',
-      formatMessage(message, `${user.userName} has left the chat`)
+     { message : `${user.userName} has left the chat`}
     );
 
     // Send users and room info
