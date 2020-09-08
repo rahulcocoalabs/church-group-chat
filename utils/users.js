@@ -2,6 +2,9 @@ const users = [];
 
 // Join user to chat
 function userJoin(id, data) {
+  console.log("users")
+  console.log(users)
+  console.log("users")
   const user = { 
     id,
     userName : data.userName,
@@ -17,6 +20,13 @@ function userJoin(id, data) {
 
 // Get current user
 function getCurrentUser(id) {
+  console.log("----getCurrentUser---")
+  console.log("users")
+  console.log(users)
+  console.log("users")
+  console.log("id : " + id)
+  console.log("----getCurrentUser---")
+
   return users.find(user => user.id === id);
 }
 
