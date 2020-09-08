@@ -46,14 +46,14 @@ io.on('connection', socket => {
 
     // Welcome current user
     console.log("inside connection")
-    socket.emit('receive_message',  'Welcome to chat');
+    socket.emit('receive_message',  {message : 'Welcome to chat'});
     socket.on('send_message', msg => {
       console.log("msg")
       console.log(msg)
       console.log("msg")
       // const user = getCurrentUser(socket.id);
   
-      // io.to(user.room).emit('message', formatMessage(user.username, msg));
+      io.to(user.room).emit('message', formatMessage(user.username, msg));
     });
 })
 
