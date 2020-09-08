@@ -48,7 +48,9 @@ io.on('connection', socket => {
     console.log("inside connection")
     // socket.emit('message',  'Welcome to chat');
     socket.on('send_message', msg => {
-      console.log("msg : " + msg)
+      console.log("msg")
+      console.log(msg)
+      console.log("msg")
       // const user = getCurrentUser(socket.id);
   
       // io.to(user.room).emit('message', formatMessage(user.username, msg));
