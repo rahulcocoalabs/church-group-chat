@@ -3,6 +3,13 @@ var requestUuid = require('express-request-id')();
 var cors = require('cors');
 var http = require('http');
 const socketio = require('socket.io');
+const formatMessage = require('./utils/messages');
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers
+} = require('./utils/users');
 
 const bodyParser = require('body-parser');
 var consoleArguments = require('minimist');
@@ -40,21 +47,55 @@ app.use(bodyParser.urlencoded({
 }))
 
 io.on('connection', socket => {
-    // socket.on('joinRoom', ({ userId, room }) => {
-    //   const user = userJoin(socket.id, userId, room);
-    // })
+    socket.on('join_room', (data) => {
+      const user = userJoin(socket.id, data);
 
-    // Welcome current user
-    console.log("inside connection")
-    socket.emit('receive_message',  {message : 'Welcome to chat'});
-    socket.on('send_message', msg => {
-      console.log("msg")
-      console.log(msg)
-      console.log("msg")
-      // const user = getCurrentUser(socket.id);
+      socket.join(user.groupId);
   
-      io.to(user.room).emit('message', formatMessage(user.username, msg));
-    });
+      // Welcome current user
+      socket.emit('receive_message', formatMessage({message : 'Welcome to chat'}));
+  
+      // Broadcast when a user connects
+      socket.broadcast
+        .to(user.groupId)
+        .emit(
+          'receive_message',
+          formatMessage(message, `${user.userName} has joined the chat`)
+        );
+  
+      // // Send users and room info
+      // io.to(user.groupId).emit('roomUsers', {
+      //   groupId: user.groupId,
+      //   users: getRoomUsers(user.groupId)
+      // });
+    })
+
+
+  // Listen for chatMessage
+  socket.on('send_message', msgData => {
+    const user = getCurrentUser(socket.id);
+
+    io.to(user.groupId).emit('receive_message', formatMessage(user.userName, msgData));
+  });
+
+
+// Runs when client disconnects
+socket.on('disconnect', () => {
+  const user = userLeave(socket.id);
+
+  if (user) {
+    io.to(user.groupId).emit(
+      'receive_message',
+      formatMessage(message, `${user.userName} has left the chat`)
+    );
+
+    // Send users and room info
+    // io.to(user.groupId).emit('roomUsers', {
+    //   groupId: user.groupId,
+    //   users: getRoomUsers(user.groupId)
+    // });
+  }
+});
 })
 
 function loadConfigForEnv(configFilePath,env) {
