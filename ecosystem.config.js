@@ -1,8 +1,8 @@
 module.exports = {
     apps : [
     {
-      name: 'notifications - Church Chat manager Microservices',
-      script: 'notifications.service.js',
+      name: 'Group chat - Church Chat manager Microservices',
+      script: 'chats.service.js',
       // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
       instances: 1,
       autorestart: true,

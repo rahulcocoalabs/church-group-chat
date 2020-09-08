@@ -1,4 +1,4 @@
 var server = require('./server.js'); 
-var routes = ['notifications'];
-var serviceName = "notifications";
+var routes = ['chats'];
+var serviceName = "chats";
 server.start(serviceName, routes);
