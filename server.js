@@ -2,6 +2,8 @@ const express = require('express');
 var requestUuid = require('express-request-id')();
 var cors = require('cors');
 var http = require('http');
+const socketio = require('socket.io');
+
 const bodyParser = require('body-parser');
 var consoleArguments = require('minimist');
 var argv = consoleArguments(process.argv.slice(2));
