@@ -35,7 +35,7 @@ function userLeave(id) {
   console.log("userLeave")
   console.log(users)
   console.log("userLeave")
-  const index = users.findIndex(user => user.groupId === groupId);
+  const index = users.findIndex(user => user.id === id);
 
   if (index !== -1) {
     return users.splice(index, 1)[0];
