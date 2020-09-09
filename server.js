@@ -76,14 +76,17 @@ io.on('connection', socket => {
 
   // Listen for chatMessage
   socket.on('send_message', msgData => {
+    console.log("--------------------------")
     console.log("msgData")
     console.log(msgData)
     console.log("msgData")
+    console.log("socket id : " + socket.id)
     const user = getCurrentUser(socket.id);
     console.log("user")
     console.log(user)
     console.log("user")
     io.to(user.groupId).emit('receive_message', formatMessage(user.userName, msgData));
+    console.log("--------------------------")
   });
 
 
