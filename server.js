@@ -47,14 +47,10 @@ app.use(bodyParser.urlencoded({
 }))
 
 io.on('connection', socket => {
-  console.log("1.conected")
     socket.on('join_room', (data) => {
-  console.log("2.joined")
-
       const user = userJoin(socket.id, data);
-
       socket.join(user.groupId);
-  
+      
       // Welcome current user
       socket.emit('receive_message', {message : 'Welcome to chat'});
       console.log("groupID : " + user.groupId)
@@ -94,7 +90,7 @@ io.on('connection', socket => {
 socket.on('disconnect', () => {
 
   const user = userLeave(socket.id);
-  socket.leave(socket.id)
+  socket.leave(user.groupId)
   if (user) {
     io.to(user.groupId).emit(
       'receive_message',
