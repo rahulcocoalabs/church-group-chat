@@ -19,6 +19,7 @@ async function storeMessage(messageData, socketId){
   var churchId = messageData.churchId;
   var content = messageData.content;
   var userName = messageData.userName;
+  var date = messageData.date;
   var userData  = await Users.findOne({
     _id : userId,
     church : churchId,
