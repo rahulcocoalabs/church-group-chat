@@ -3,12 +3,17 @@ var requestUuid = require('express-request-id')();
 var cors = require('cors');
 var http = require('http');
 const socketio = require('socket.io');
-const formatMessage = require('./utils/messages');
+const{
+formatMessage,
+storeMessage
+}
+ = require('./utils/messages');
 const {
   userJoin,
   getCurrentUser,
   userLeave,
   getRoomUsers
+
 } = require('./utils/users');
 
 const bodyParser = require('body-parser');
@@ -71,7 +76,7 @@ io.on('connection', socket => {
 
 
   // Listen for chatMessage
-  socket.on('send_message', msgData => {
+  socket.on('send_message', async msgData => {
     console.log("--------------------------")
     console.log("msgData")
     console.log(msgData)
@@ -81,6 +86,10 @@ io.on('connection', socket => {
     console.log("user")
     console.log(user)
     console.log("user")
+    const storeData = await storeMessage(msgData,socket.id);
+    console.log("usstoreDataer")
+    console.log(storeData)
+    console.log("storeData")
     io.to(user.groupId).emit('receive_message', formatMessage(user.userName, msgData));
     console.log("--------------------------")
   });

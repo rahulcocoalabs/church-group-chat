@@ -31,7 +31,10 @@ const GroupMessageSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    message: String,
+    userName : String,
+    socketId : String,
+    content: String,
+    date: Date,
     status: Number,
     tsCreatedAt: Number,
     tsModifiedAt: Number
