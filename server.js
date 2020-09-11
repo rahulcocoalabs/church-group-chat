@@ -99,7 +99,7 @@ io.on('connection', socket => {
 socket.on('disconnect', () => {
 
   const user = userLeave(socket.id);
-  // socket.leave(user.groupId)
+  socket.leave(user.groupId)
   if (user) {
     io.to(user.groupId).emit(
       'receive_message',
