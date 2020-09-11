@@ -40,7 +40,7 @@ async function storeMessage(messageData, socketId){
     date,
     status : 1,
     tsCreatedAt : Date.now(),
-    tsModifiedAt
+    tsModifiedAt : null
   }
 
   var newMessage = new GroupMessages(messageData);
