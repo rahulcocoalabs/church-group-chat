@@ -90,7 +90,7 @@ io.on('connection', socket => {
     console.log("usstoreDataer")
     console.log(storeData)
     console.log("storeData")
-    io.to(user.groupId).emit('receive_message', formatMessage(user.userName, msgData));
+    io.to(msgData.groupId).emit('receive_message', formatMessage(user.userName, msgData));
     console.log("--------------------------")
   });
 
