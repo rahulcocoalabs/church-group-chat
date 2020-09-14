@@ -6,8 +6,14 @@ var GroupMessages = require('../app/models/groupMessage.model');
 var Users = require('../app/models/user.model');
 
 function formatMessage(userName, messageData) {
+  console.log("in format message");
+  console.log(messageData.date)
+  console.log("in format message");
+
   return {
     userName,
+    userId : messageData.userId,
+    groupId : messageData.groupId,
     content : messageData.content,
     time: messageData.date
   };
