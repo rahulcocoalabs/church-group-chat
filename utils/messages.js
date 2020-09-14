@@ -15,7 +15,7 @@ function formatMessage(userName, messageData) {
     userId : messageData.userId,
     groupId : messageData.groupId,
     content : messageData.content,
-    time: messageData.date
+    date: messageData.date
   };
 }
 
