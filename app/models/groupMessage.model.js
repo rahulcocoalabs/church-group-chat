@@ -34,7 +34,7 @@ const GroupMessageSchema = mongoose.Schema({
     userName : String,
     socketId : String,
     content: String,
-    date: Date,
+    date: String,
     status: Number,
     tsCreatedAt: Number,
     tsModifiedAt: Number
