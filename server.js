@@ -60,12 +60,12 @@ io.on('connection', socket => {
       socket.emit('receive_message', {message : 'Welcome to chat'});
       console.log("groupID : " + user.groupId)
       // Broadcast when a user connects
-      socket.broadcast
-        .to(user.groupId)
-        .emit(
-          'receive_message',
-          {message : `${user.userName} has joined the chat`}
-        );
+      // socket.broadcast
+      //   .to(user.groupId)
+      //   .emit(
+      //     'receive_message',
+      //     {message : `${user.userName} has joined the chat`}
+      //   );
   
       // // Send users and room info
       // io.to(user.groupId).emit('roomUsers', {
@@ -101,10 +101,10 @@ socket.on('disconnect', () => {
   const user = userLeave(socket.id);
   socket.leave(user.groupId)
   if (user) {
-    io.to(user.groupId).emit(
-      'receive_message',
-     { message : `${user.userName} has left the chat`}
-    );
+    // io.to(user.groupId).emit(
+    //   'receive_message',
+    //  { message : `${user.userName} has left the chat`}
+    // );
 
     // Send users and room info
     // io.to(user.groupId).emit('roomUsers', {
